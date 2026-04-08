@@ -22,7 +22,7 @@ class ResetRequest(BaseModel):
     task_name: Optional[str] = None
 
 @app.post("/reset", response_model=StepResult)
-def reset(body: Dict[str, Any] = Body(default={})):
+def reset(body: Optional[Dict[str, Any]] = Body(None)):
     """Reset environment with optional task_name."""
     task_name = body.get("task_name") if body else None
     if not task_name:
