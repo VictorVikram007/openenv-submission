@@ -24,14 +24,24 @@ class ResetRequest(BaseModel):
 @app.post("/reset", response_model=StepResult)
 async def reset(request: Request):
     """Reset environment with optional task_name."""
-    try:
-        body = await request.json()
-        task_name = body.get("task_name") if isinstance(body, dict) else None
-    except:
-        task_name = None
+    task_name = None
     
+    # Try to parse body if present
+    try:
+        content_type = request.headers.get("content-type", "")
+        if content_type and "application/json" in content_type:
+            body = await request.body()
+            if body:
+                data = await request.json()
+                if isinstance(data, dict):
+                    task_name = data.get("task_name")
+    except:
+        pass
+    
+    # Use default if not provided
     if not task_name:
         task_name = "bug_detection"
+    
     return env.reset(task_name)
 
 @app.post("/step", response_model=StepResult)
