@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+env_a_venv/
+env_b_venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.tox/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.coverage
+htmlcov/
+.hypothesis/
+
+# Temp files
+*.log
+*.tmp
+.env
+.env.local
+
+# Documentation
+*.md
+!app.py
+
+# Misc
+node_modules/
+.next/
+out/

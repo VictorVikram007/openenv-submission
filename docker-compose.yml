@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # Data Cleaning Environment API
+  data-cleaning:
+    build:
+      context: ./env_a_data_cleaning
+      dockerfile: Dockerfile
+    container_name: meta-data-cleaning
+    ports:
+      - "7860:7860"
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-sk_test_example}
+      - MODEL_NAME=${MODEL_NAME:-gpt-4}
+    volumes:
+      - ./env_a_data_cleaning:/app
+    networks:
+      - meta-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # Code Review Environment API
+  code-review:
+    build:
+      context: ./env_b_code_review
+      dockerfile: Dockerfile
+    container_name: meta-code-review
+    ports:
+      - "7861:7860"
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-sk_test_example}
+      - MODEL_NAME=${MODEL_NAME:-gpt-4}
+    volumes:
+      - ./env_b_code_review:/app
+    networks:
+      - meta-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # Gradio Interface
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile.gradio
+    container_name: meta-interface
+    ports:
+      - "7862:7860"
+    environment:
+      - DATA_CLEANING_API=http://data-cleaning:7860
+      - CODE_REVIEW_API=http://code-review:7860
+    depends_on:
+      data-cleaning:
+        condition: service_healthy
+      code-review:
+        condition: service_healthy
+    networks:
+      - meta-network
+
+networks:
+  meta-network:
+    driver: bridge
