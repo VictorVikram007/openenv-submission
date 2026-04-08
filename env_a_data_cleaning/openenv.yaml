@@ -1,0 +1,30 @@
+# c:\Users\Vikram\OneDrive\Desktop\meta\openenv-submission\env_a_data_cleaning\openenv.yaml
+name: data-cleaning-qa-env
+version: "1.0.0"
+description: "OpenEnv environment for evaluating AI agents on real-world data cleaning and QA tasks"
+author: "GitHub Copilot"
+tags: ["data-cleaning", "data-quality", "tabular", "openenv"]
+tasks:
+  - id: null_filling
+    difficulty: easy
+    max_steps: 1
+  - id: type_coercion_dedup
+    difficulty: medium
+    max_steps: 1
+  - id: full_qa_pipeline
+    difficulty: hard
+    max_steps: 1
+observation_space:
+  dirty_csv: string
+  schema: object
+  null_count: integer
+  task_instruction: string
+action_space:
+  cleaned_csv: string
+  issues_found: array
+  transformations: array
+reward_range: [0.0, 1.0]
+api:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state

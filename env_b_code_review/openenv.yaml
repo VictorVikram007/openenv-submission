@@ -1,0 +1,29 @@
+# c:\Users\Vikram\OneDrive\Desktop\meta\openenv-submission\env_b_code_review\openenv.yaml
+name: code-review-bug-fixing-env
+version: "1.0.0"
+description: "OpenEnv for evaluating AI agents on code review, bug detection, and security analysis."
+author: "GitHub Copilot"
+tags: ["code-review", "bug-fixing", "security", "python", "openenv"]
+tasks:
+  - id: bug_detection
+    difficulty: easy
+    max_steps: 1
+  - id: security_review
+    difficulty: medium
+    max_steps: 1
+  - id: full_pr_review
+    difficulty: hard
+    max_steps: 1
+observation_space:
+  code_snippet: string
+  language: string
+  filename: string
+  task_type: string
+  context: string
+action_space:
+  response_json: object
+reward_range: [0.0, 1.0]
+api:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
