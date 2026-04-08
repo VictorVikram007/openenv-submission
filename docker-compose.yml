@@ -4,8 +4,8 @@ services:
   # Data Cleaning Environment API
   data-cleaning:
     build:
-      context: ./env_a_data_cleaning
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: env_a_data_cleaning/Dockerfile
     container_name: meta-data-cleaning
     ports:
       - "7860:7860"
@@ -13,7 +13,8 @@ services:
       - HF_TOKEN=${HF_TOKEN:-sk_test_example}
       - MODEL_NAME=${MODEL_NAME:-gpt-4}
     volumes:
-      - ./env_a_data_cleaning:/app
+      - ./env_a_data_cleaning:/app/env_a_data_cleaning
+      - ./shared:/app/shared
     networks:
       - meta-network
     healthcheck:
@@ -26,8 +27,8 @@ services:
   # Code Review Environment API
   code-review:
     build:
-      context: ./env_b_code_review
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: env_b_code_review/Dockerfile
     container_name: meta-code-review
     ports:
       - "7861:7860"
@@ -35,7 +36,8 @@ services:
       - HF_TOKEN=${HF_TOKEN:-sk_test_example}
       - MODEL_NAME=${MODEL_NAME:-gpt-4}
     volumes:
-      - ./env_b_code_review:/app
+      - ./env_b_code_review:/app/env_b_code_review
+      - ./shared:/app/shared
     networks:
       - meta-network
     healthcheck:

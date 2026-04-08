@@ -1,6 +1,13 @@
 # c:\Users\Vikram\OneDrive\Desktop\meta\openenv-submission\env_a_data_cleaning\server.py
+import sys
+import os
+from pathlib import Path
+
 from fastapi import FastAPI
 from pydantic import BaseModel
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from env_a_data_cleaning.environment import DataCleaningEnv, DataCleaningAction
 from shared.base_models import StepResult

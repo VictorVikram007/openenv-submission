@@ -1,6 +1,12 @@
 # c:\Users\Vikram\OneDrive\Desktop\meta\openenv-submission\env_b_code_review\environment.py
+import sys
+from pathlib import Path
 from typing import Any, Dict
 from pydantic import BaseModel
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from shared.base_models import BaseObservation, BaseAction, StepResult
 from env_b_code_review.tasks import TASKS
 from env_b_code_review.code_generator import generate_buggy_code

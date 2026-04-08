@@ -1,8 +1,14 @@
 # c:\Users\Vikram\OneDrive\Desktop\meta\openenv-submission\env_a_data_cleaning\environment.py
+import sys
+from pathlib import Path
 import pandas as pd
 from io import StringIO
 from typing import Any, Optional
 from pydantic import BaseModel
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from shared.base_models import BaseObservation, BaseAction, StepResult
 from env_a_data_cleaning.tasks import TASKS
 from env_a_data_cleaning.data_generator import generate_dirty_csv
