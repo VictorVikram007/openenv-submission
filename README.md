@@ -10,7 +10,7 @@ This repository contains two OpenEnv-compliant environments for evaluating AI ag
 
 No setup required—just click and start benchmarking!
 
-## 📋 Environments Overview
+## Environments Overview
 
 ### 1. **Data Cleaning & QA Environment** (`env_a_data_cleaning`)
 Real-world data quality challenges including null handling, type coercion, deduplication, outlier detection, and referential integrity.
@@ -24,7 +24,7 @@ Automated code review tasks including bug detection, security vulnerability iden
 
 ---
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 meta/
@@ -62,7 +62,7 @@ meta/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Python 3.10+
@@ -115,7 +115,7 @@ python inference.py
 
 ---
 
-## 📦 Docker Deployment
+##  Docker Deployment
 
 ### Build Image
 
@@ -147,7 +147,7 @@ docker run -p 7861:7860 \
 
 ---
 
-## 🎯 OpenEnv API Specification
+##  OpenEnv API Specification
 
 ### Common Endpoints
 
@@ -229,7 +229,7 @@ Get current environment state.
 
 ---
 
-## � Documentation
+##  Documentation
 
 **Start here:**
 - [Quick Start (5 min)](QUICKSTART.md) - Get running immediately
@@ -245,7 +245,7 @@ Get current environment state.
 
 ---
 
-## 🏆 Baseline Performance
+##  Baseline Performance
 
 ### Data Cleaning Environment
 
@@ -267,7 +267,7 @@ Get current environment state.
 
 ---
 
-## 🔄 Observation and Action Spaces
+##  Observation and Action Spaces
 
 ### Data Cleaning Environment
 
@@ -319,7 +319,7 @@ Get current environment state.
 
 ---
 
-## 📊 Reward Functions
+##  Reward Functions
 
 ### Data Cleaning Tasks
 
@@ -362,7 +362,7 @@ Get current environment state.
 
 ---
 
-## 🧪 Running Tests & Evaluation
+##  Running Tests & Evaluation
 
 ### Test a Single Task
 
@@ -402,7 +402,7 @@ python env_a_data_cleaning/inference.py
 
 ---
 
-## 🌐 Hugging Face Spaces Deployment
+##  Hugging Face Spaces Deployment
 
 Both environments can be deployed as interactive Gradio interfaces on Hugging Face Spaces.
 
@@ -424,7 +424,7 @@ MODEL_NAME=gpt-4
 
 ---
 
-## 📝 Implementation Details
+##  Implementation Details
 
 ### Data Generation (Reproducibility)
 
@@ -457,7 +457,7 @@ Scoring is:
 
 ---
 
-## 🔧 Configuration & Customization
+##  Configuration & Customization
 
 ### Modify Tasks
 
@@ -492,7 +492,7 @@ uvicorn server:app --port 8000
 
 ---
 
-## 📄 License
+##  License
 
 This project is provided as part of the Meta OpenEnv Hackathon.
 
