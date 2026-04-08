@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
 
@@ -22,9 +22,14 @@ class ResetRequest(BaseModel):
     task_name: Optional[str] = None
 
 @app.post("/reset", response_model=StepResult)
-def reset(body: Optional[Dict[str, Any]] = Body(None)):
+async def reset(request: Request):
     """Reset environment with optional task_name."""
-    task_name = body.get("task_name") if body else None
+    try:
+        body = await request.json()
+        task_name = body.get("task_name") if isinstance(body, dict) else None
+    except:
+        task_name = None
+    
     if not task_name:
         task_name = "bug_detection"
     return env.reset(task_name)
