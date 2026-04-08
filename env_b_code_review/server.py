@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from pydantic import BaseModel
 
 # Add parent directory to path for imports
@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from env_b_code_review.environment import CodeReviewEnv, CodeReviewAction
 from shared.base_models import StepResult
+import json
 
 app = FastAPI()
 env = CodeReviewEnv()
@@ -20,13 +21,23 @@ class ResetRequest(BaseModel):
     task_name: Optional[str] = None
 
 @app.post("/reset", response_model=StepResult)
-def reset(request: Optional[ResetRequest] = None, task_name: Optional[str] = Query(None)):
+async def reset(request: Request):
     """Reset environment. Accepts task_name via query parameter or request body."""
-    # Get task_name from query parameter, request body, or default
-    actual_task_name = task_name or (request.task_name if request else None)
-    if not actual_task_name:
-        actual_task_name = "bug_detection"  # Default task
-    return env.reset(actual_task_name)
+    task_name = request.query_params.get("task_name")
+    
+    # Try to get from request body if not in query params
+    if not task_name:
+        try:
+            body = await request.json()
+            task_name = body.get("task_name") if isinstance(body, dict) else None
+        except:
+            pass
+    
+    # Use default if still not found
+    if not task_name:
+        task_name = "bug_detection"
+    
+    return env.reset(task_name)
 
 @app.post("/step", response_model=StepResult)
 def step(action: CodeReviewAction):
